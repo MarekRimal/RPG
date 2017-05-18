@@ -1,0 +1,85 @@
+Herní engine - spoluautor: Daniel Burša.
+
+Co to bude?
+
+Jeden level RPG hry. Pohled shora. Zhruba 3-4 místnosti plné nepřátel různého druhu. Po každé místnosti hrdina dostane nějaký powerup nebo novou zbraň podle výběru. V poslední místnosti bude boss Martin, kterého když porazí, vyhraje level.
+
+Příběh domyslíme.
+
+Objektový návrh:
+
+Basic
+
+Display
+  Instancni promene typu JFrame a Canvas
+  Take width a height, urcujici velikost okna
+  Tato trida vytvori okno skrze metodu createDisplay()
+
+
+Launcher
+  Pouze herni spoustec
+  Vytvori object tridy Game a spusti vlakno
+
+
+Game
+  Zakladni trida pro beh hry implementujici Runnable
+  Spousti vlakno metodu start() = start hry
+  Instancni promene typu Display , Thread, Graphics, BufferStrategy, KeyManager
+ Take herni stavy
+  Metoda init() nastavi herni okno, keyListener, objekty hernich stavu a nastavi zakladni State pomoci setState
+  Vola metody tick() ve tridach, kde tick() je – samy s render()
+
+
+States
+
+State
+  Abstraktni trida, od ktere budou dedit vsechny herni stavy
+  Getter, Setter, Constructor
+  Abstraktni metody tick() = update, render() = prekresleni,
+
+
+GameState
+  Herni stav pro hru 
+  Instancni promena player typu Player
+  Implementovane metody tick() a render()
+
+
+MenuState
+  Bude herni stav pro main menu - nez se spusti GameState
+
+
+Graphics
+
+Assets
+  Pravdepodobne hlavni trida pro import textur
+  Aby se vsechno neimportovalo zvlast
+  Na zacatku se naimportuje mrizka se vsemi texturami
+
+
+ImageLoader
+(SpriteSheet – horsi Assets)
+
+Entity
+
+Entity
+  Abstraktni trida pro vsechny jednotky - tick(), render()
+  V constructoru ma x, y souradnice
+
+
+Creature
+  Abstraktni trida – tick(), render()
+  Dedi od tridy Entity 
+  V constructoru navic health nebo attack power
+
+
+Player
+  Dedi od tridy Creature
+  Obsahuje jiz implementovane metody tick() a render(), ktere zajistuji pohyb hrdiny
+
+
+Pak nějaké nepřátelské jednotky, powerupy a zbraně
+
+Ovládání
+
+
+Třída KeyManager
